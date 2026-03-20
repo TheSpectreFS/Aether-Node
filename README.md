@@ -90,3 +90,6 @@ const session = await Aether.initPayment({
 
 ### Developed by **TheSpectreFS**
 *Redefining Digital Ownership through the $DUM Economy.*
+
+
+<img width="1391" height="834" alt="image" src="https://github.com/user-attachments/assets/3676a559-a32b-4ecf-a589-3ea941c117c3" />
