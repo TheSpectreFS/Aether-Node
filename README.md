@@ -90,7 +90,7 @@ const session = await Aether.initPayment({
 
 ---
 
-### Developed by **TheSpectreFS**
+### Developed by **LixerDev**
 *Redefining Digital Ownership through the $DUM Economy.*
 
 
