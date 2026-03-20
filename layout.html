@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Licence Manager Pro{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #0a0a0f;
+            --bg2: #111118;
+            --bg3: #1a1a24;
+            --border: #2a2a3a;
+            --text: #e8e8f0;
+            --text2: #8888aa;
+            --primary: #7c3aed;
+            --primary-hover: #6d28d9;
+            --primary-light: rgba(124,58,237,0.12);
+            --green: #10b981;
+            --green-bg: rgba(16,185,129,0.1);
+            --red: #ef4444;
+            --red-bg: rgba(239,68,68,0.1);
+            --yellow: #f59e0b;
+            --yellow-bg: rgba(245,158,11,0.1);
+            --blue: #3b82f6;
+            --blue-bg: rgba(59,130,246,0.1);
+            --radius: 10px;
+            --shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* NAV */
+        nav {
+            background: var(--bg2);
+            border-bottom: 1px solid var(--border);
+            padding: 0 2rem;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: -0.01em;
+        }
+        .nav-brand .icon-shield {
+            width: 28px; height: 28px;
+            background: var(--primary);
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .nav-actions { display: flex; align-items: center; gap: 0.75rem; }
+
+        /* BUTTONS */
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            padding: 0.45rem 0.9rem;
+            border-radius: 8px;
+            font-size: 13px; font-weight: 500;
+            cursor: pointer; border: none;
+            text-decoration: none; transition: all 0.15s;
+        }
+        .btn-primary { background: var(--primary); color: #fff; }
+        .btn-primary:hover { background: var(--primary-hover); }
+        .btn-ghost { background: transparent; color: var(--text2); border: 1px solid var(--border); }
+        .btn-ghost:hover { background: var(--bg3); color: var(--text); }
+        .btn-danger { background: var(--red-bg); color: var(--red); border: 1px solid rgba(239,68,68,0.2); }
+        .btn-danger:hover { background: rgba(239,68,68,0.2); }
+        .btn-warning { background: var(--yellow-bg); color: var(--yellow); border: 1px solid rgba(245,158,11,0.2); }
+        .btn-warning:hover { background: rgba(245,158,11,0.2); }
+        .btn-success { background: var(--green-bg); color: var(--green); border: 1px solid rgba(16,185,129,0.2); }
+        .btn-success:hover { background: rgba(16,185,129,0.2); }
+        .btn-sm { padding: 0.3rem 0.65rem; font-size: 12px; border-radius: 6px; }
+
+        /* MAIN */
+        main { max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+        /* FLASH */
+        .flash { padding: 0.75rem 1rem; border-radius: var(--radius); margin-bottom: 1rem; font-size: 13px; border: 1px solid; }
+        .flash.success { background: var(--green-bg); border-color: rgba(16,185,129,0.3); color: var(--green); }
+        .flash.error   { background: var(--red-bg);   border-color: rgba(239,68,68,0.3);   color: var(--red);   }
+        .flash.info    { background: var(--blue-bg);  border-color: rgba(59,130,246,0.3);  color: var(--blue);  }
+        .flash.warning { background: var(--yellow-bg);border-color: rgba(245,158,11,0.3); color: var(--yellow);}
+
+        /* CARD */
+        .card {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .card-header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .card-title { font-size: 15px; font-weight: 600; }
+        .card-body { padding: 1.5rem; }
+
+        /* STATS */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+        .stat-card {
+            background: var(--bg2); border: 1px solid var(--border);
+            border-radius: 12px; padding: 1.25rem;
+        }
+        .stat-label { font-size: 12px; color: var(--text2); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+        .stat-value { font-size: 2rem; font-weight: 700; line-height: 1; }
+        .stat-value.green { color: var(--green); }
+        .stat-value.red   { color: var(--red); }
+        .stat-value.yellow{ color: var(--yellow); }
+        .stat-value.purple{ color: var(--primary); }
+
+        /* TABLE */
+        .table-wrap { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; }
+        thead th {
+            padding: 0.75rem 1rem;
+            text-align: left; font-size: 11px; font-weight: 600;
+            color: var(--text2); text-transform: uppercase; letter-spacing: 0.06em;
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+        }
+        tbody td { padding: 0.9rem 1rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+        tbody tr:last-child td { border-bottom: none; }
+        tbody tr:hover { background: var(--bg3); }
+
+        /* BADGES */
+        .badge {
+            display: inline-flex; align-items: center; gap: 0.3rem;
+            padding: 0.25rem 0.6rem; border-radius: 20px; font-size: 11px; font-weight: 600;
+        }
+        .badge-active  { background: var(--green-bg);  color: var(--green);  border: 1px solid rgba(16,185,129,0.25); }
+        .badge-revoked { background: var(--red-bg);    color: var(--red);    border: 1px solid rgba(239,68,68,0.25); }
+        .badge-expired { background: var(--yellow-bg); color: var(--yellow); border: 1px solid rgba(245,158,11,0.25); }
+        .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+        /* KEY */
+        .license-key {
+            font-family: 'Courier New', monospace; font-size: 12px;
+            color: var(--text2); letter-spacing: 0.02em;
+        }
+
+        /* ACTIONS ROW */
+        .actions { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+        .actions form { margin: 0; display: inline; }
+
+        /* FORM */
+        .form-group { margin-bottom: 1.25rem; }
+        label { display: block; font-size: 13px; font-weight: 500; color: var(--text2); margin-bottom: 0.4rem; }
+        input[type=text], input[type=password], input[type=number] {
+            width: 100%; padding: 0.6rem 0.9rem;
+            background: var(--bg3); border: 1px solid var(--border);
+            border-radius: 8px; color: var(--text); font-size: 14px;
+            outline: none; transition: border 0.15s;
+        }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-light); }
+        small { font-size: 12px; color: var(--text2); display: block; margin-top: 0.3rem; }
+
+        /* PAGE HEADER */
+        .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.75rem; }
+        .page-title { font-size: 1.3rem; font-weight: 700; }
+        .page-subtitle { font-size: 13px; color: var(--text2); margin-top: 0.15rem; }
+
+        /* ICON SVG helper */
+        .ico { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+        /* EMPTY STATE */
+        .empty { text-align: center; padding: 3rem 1rem; color: var(--text2); }
+        .empty svg { margin: 0 auto 1rem; opacity: 0.3; }
+
+        /* CODE */
+        code { font-family: 'Courier New', monospace; background: var(--bg3); padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 12px; color: var(--text); border: 1px solid var(--border); }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('admin_dashboard') }}" class="nav-brand">
+            <div class="icon-shield">
+                <svg class="ico" style="width:16px;height:16px;stroke:#fff" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            Licence Manager Pro
+        </a>
+        {% if session.logged_in %}
+        <div class="nav-actions">
+            <a href="{{ url_for('add_license') }}" class="btn btn-primary">
+                <svg class="ico" style="stroke:#fff" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Nouvelle licence
+            </a>
+            <a href="{{ url_for('logout') }}" class="btn btn-ghost">
+                <svg class="ico" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                Déconnexion
+            </a>
+        </div>
+        {% endif %}
+    </nav>
+
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

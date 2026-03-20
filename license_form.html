@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block title %}{{ title }} — Licence Manager Pro{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <div class="page-title">{{ title }}</div>
+        <div class="page-subtitle">Remplissez les informations de la licence</div>
+    </div>
+    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-ghost">
+        <svg class="ico" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        Annuler
+    </a>
+</div>
+
+<div style="max-width:520px">
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                <div class="form-group">
+                    <label for="note">Note <span style="color:var(--text2);font-weight:400">(optionnel)</span></label>
+                    <input type="text" id="note" name="note" value="{{ license.note or '' }}" placeholder="Ex: Client Premium, Promo été...">
+                </div>
+
+                <div class="form-group">
+                    <label for="expires_days">Durée de validité (jours)</label>
+                    <input type="number" id="expires_days" name="expires_days" value="{{ license.expires_days or 30 }}" min="0" required>
+                    <small>Entrer <strong style="color:var(--text)">0</strong> pour une licence illimitée.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="max_activations">Nombre d'appareils maximum</label>
+                    <input type="number" id="max_activations" name="max_activations" value="{{ license.max_activations or 1 }}" min="1" required>
+                    <small>Nombre d'appareils (HWIDs) autorisés simultanément.</small>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:0.7rem">
+                    <svg class="ico" style="stroke:#fff" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                    Enregistrer la licence
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
